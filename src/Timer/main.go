@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/KasimBaybikov/Timer/src/timer/config"
 )
 
 func main() {
@@ -21,7 +23,7 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(configFile)
-	//conf := config.getConfig(configFile)
-	//fmt.Printf("%+v", conf)
+	conf := config.GetConfig(configFile)
+	fmt.Printf("%+v", conf)
 	//http.ListenAndServe()
 }

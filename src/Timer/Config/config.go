@@ -21,7 +21,7 @@ func getPort(str string) int {
 	return port
 }
 
-func getConfig(file *os.File) FileConfig {
+func GetConfig(file *os.File) FileConfig {
 	var conf FileConfig
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
