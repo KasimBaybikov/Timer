@@ -1,25 +1,22 @@
-NAME_TIMER = timer
-SRC_TIMER = ./src/Timer
+BIN = bin/
+CMD = ./cmd/
 
-NAME_TIMER_CONTINUE = timer_continue
-SRC_TIMER_CONTINUE = ./src/Timer_continue
+NAME_BINS = timer\
+			timer_continue\
+			timer_stop\
 
-NAME_TIMER_STOP = timer_stop
-SRC_TIMER_STOP = ./src/Timer_stop
+PATH_BINS = $(addprefix $(BIN), $(NAME_BINS))
 
+all: $(BIN) $(PATH_BINS)
 
-all: $(NAME_TIMER) $(NAME_TIMER_CONTINUE) $(NAME_TIMER_STOP)
+$(BIN):
+	mkdir -p $(BIN)
 
-$(NAME_TIMER):
-	go build -o $(NAME_TIMER) $(SRC_TIMER)
-
-$(NAME_TIMER_CONTINUE):
-	go build -o $(NAME_TIMER_CONTINUE) $(SRC_TIMER_CONTINUE)
-
-$(NAME_TIMER_STOP):
-	go build -o $(NAME_TIMER_STOP) $(SRC_TIMER_STOP)
+$(PATH_BINS):
+	go build -o $(BIN) $(CMD)...
 
 clean:
-	rm -rf $(NAME_TIMER)
-	rm -rf $(NAME_TIMER_CONTINUE)
-	rm -rf $(NAME_TIMER_STOP)
+	rm -rf $(PATH_BINS)
+	rm -rf $(BIN)
+
+re: clean $(PATH_BINS)
