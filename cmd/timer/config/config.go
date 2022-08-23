@@ -12,7 +12,11 @@ type FileConfig struct {
 	Port int
 }
 
-func getPort(str string) int {
+func newFileConfig() FileConfig {
+	return FileConfig{Port: 8080}
+}
+
+func Port(str string) int {
 	args := strings.Split(str, "=")
 	port, err := strconv.Atoi(args[1])
 	if err != nil {
@@ -21,13 +25,13 @@ func getPort(str string) int {
 	return port
 }
 
-func GetConfig(file *os.File) FileConfig {
-	var conf FileConfig
+func Config(file *os.File) FileConfig {
+	conf := newFileConfig()
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
 		str := fileScanner.Text()
 		if strings.Contains(str, "port") {
-			conf.Port = getPort(str)
+			conf.Port = Port(str)
 		}
 	}
 	return conf

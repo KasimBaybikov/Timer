@@ -14,6 +14,7 @@ $(BIN):
 
 $(PATH_BINS):
 	go build -o $(BIN) $(CMD)...
+	@echo "change config file on \033[32m$(HOME)/.config/timer/.conf.timer\033[0m"
 
 clean:
 	rm -rf $(PATH_BINS)
