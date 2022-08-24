@@ -3,7 +3,7 @@ CMD = ./cmd/
 
 NAME_BINS = timer\
 			timer_continue\
-			timer_stop\
+			timer_pause\
 
 PATH_BINS = $(addprefix $(BIN), $(NAME_BINS))
 

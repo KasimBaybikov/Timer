@@ -2,27 +2,22 @@ package config
 
 import (
 	"bufio"
-	"log"
 	"os"
-	"strconv"
 	"strings"
 )
 
 type FileConfig struct {
-	Port int
+	Socket string
 }
 
 func newFileConfig() FileConfig {
-	return FileConfig{Port: 8080}
+	return FileConfig{Socket: "/etc/timer.socket"}
 }
 
-func Port(str string) int {
+func Socket(str string) string {
 	args := strings.Split(str, "=")
-	port, err := strconv.Atoi(args[1])
-	if err != nil {
-		log.Fatal(err)
-	}
-	return port
+	socket := args[1]
+	return socket
 }
 
 func Config(file *os.File) FileConfig {
@@ -30,8 +25,8 @@ func Config(file *os.File) FileConfig {
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
 		str := fileScanner.Text()
-		if strings.Contains(str, "port") {
-			conf.Port = Port(str)
+		if strings.Contains(str, "socket") {
+			conf.Socket = Socket(str)
 		}
 	}
 	return conf

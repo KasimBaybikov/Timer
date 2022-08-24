@@ -29,7 +29,7 @@ func main() {
 		},
 	}
 
-	response, err := httpc.Get("http://unix" + "/start_timer")
+	response, err := httpc.Get("http://unix" + "/pause_timer")
 	if err != nil {
 		log.Fatal(err)
 	}
