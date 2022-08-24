@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -12,24 +11,16 @@ import (
 
 func pause(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("pause_timer"))
-	fmt.Print("pause_timer")
+	//need logic
 }
 
 func start(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("start_timer"))
-	fmt.Print("start_timer")
+	//need logic
 }
 
 func main() {
-	var configFileName string
-	configFileName = "/.config/timer/conf.timer"
-	home := os.Getenv("HOME")
-	configFile, err := os.Open(home + configFileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	conf := config.Config(configFile)
-
+	conf := config.Config()
 	os.Remove(conf.Socket)
 
 	mux := http.NewServeMux()
@@ -43,5 +34,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	println("Timer is running")
 	server.Serve(unixListener)
 }

@@ -12,14 +12,7 @@ import (
 )
 
 func main() {
-	var configFileName string
-	configFileName = "/.config/timer/conf.timer"
-	home := os.Getenv("HOME")
-	configFile, err := os.Open(home + configFileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	conf := config.Config(configFile)
+	conf := config.Config()
 
 	httpc := http.Client{
 		Transport: &http.Transport{
