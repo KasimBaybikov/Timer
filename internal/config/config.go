@@ -7,23 +7,37 @@ import (
 	"strings"
 )
 
+const configFileName = "/.config/timer/conf.timer"
+
 type FileConfig struct {
-	Socket string
+	socketPath      string
+	historyFilePath string
 }
 
 func newFileConfig() FileConfig {
-	return FileConfig{Socket: "/etc/timer.socket"}
+	return FileConfig{
+		socketPath:      "/tmp/timer.socket",
+		historyFilePath: "/tmp/timer.log"}
 }
 
-func socket(str string) string {
-	args := strings.Split(str, "=")
-	socket := args[1]
-	return socket
+func socket(str string) string { // В случае изменения не придется переписывать код, надо только подправить логику
+	return str
+}
+
+func history(filePath string) string {
+	history := filePath
+	return history
+}
+
+func (f FileConfig) Socket() string { //Инкапсулирую данные от пользователя
+	return f.socketPath
+}
+
+func (f FileConfig) History() string {
+	return f.historyFilePath
 }
 
 func Config() FileConfig {
-	var configFileName string
-	configFileName = "/.config/timer/conf.timer"
 	home := os.Getenv("HOME")
 	configFile, err := os.Open(home + configFileName)
 	if err != nil {
@@ -33,8 +47,17 @@ func Config() FileConfig {
 	fileScanner := bufio.NewScanner(configFile)
 	for fileScanner.Scan() {
 		str := fileScanner.Text()
-		if strings.Contains(str, "socket") {
-			conf.Socket = socket(str)
+		args := strings.Split(str, "=")
+		if len(args) != 2 {
+			log.Fatal("Invalid argument: " + str)
+		}
+		switch args[0] {
+		case "socket":
+			conf.socketPath = socket(args[1])
+		case "history":
+			conf.historyFilePath = history(args[1])
+		default:
+			log.Fatal("unknown argument: ", args[0])
 		}
 	}
 	return conf

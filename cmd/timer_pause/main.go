@@ -17,7 +17,7 @@ func main() {
 	httpc := http.Client{
 		Transport: &http.Transport{
 			DialContext: func(_ context.Context, _, _ string) (net.Conn, error) {
-				return net.Dial("unix", conf.Socket)
+				return net.Dial("unix", conf.Socket())
 			},
 		},
 	}
