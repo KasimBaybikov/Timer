@@ -16,8 +16,8 @@ func main() {
 	timer := newTimer()
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/start_timer", timer.Continue)
-	mux.HandleFunc("/pause_timer", timer.Pause)
+	mux.HandleFunc("/timer_continue", timer.Continue)
+	mux.HandleFunc("/timer_pause", timer.Pause)
 
 	server := http.Server{
 		Handler: mux,
