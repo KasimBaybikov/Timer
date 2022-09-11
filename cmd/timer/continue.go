@@ -6,7 +6,7 @@ import (
 )
 
 func (t *Timer) Continue(w http.ResponseWriter, r *http.Request) {
-	if !t.Running() {
+	if !t.IsRunning() {
 		t.Start()
 		t.start = time.Now()
 		w.Write([]byte("start_timer\n"))

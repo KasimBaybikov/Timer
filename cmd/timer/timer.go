@@ -15,7 +15,7 @@ func (t *Timer) Stop() {
 	t.started = false
 }
 
-func (t Timer) Running() bool {
+func (t Timer) IsRunning() bool {
 	return t.started
 }
 

@@ -11,8 +11,16 @@ import (
 
 func main() {
 	conf := config.Config()
-	//fmt.Printf("%+v", conf)
 	os.Remove(conf.Socket())
+
+	_, err := os.Stat(conf.History())
+	if err != nil {
+		_, err := os.Create(conf.History())
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	timer := newTimer()
 
 	mux := http.NewServeMux()
