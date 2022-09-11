@@ -15,7 +15,8 @@ func (t *Timer) Pause(w http.ResponseWriter, r *http.Request) {
 	if t.IsRunning() {
 		t.Stop()
 		now := time.Now()
-		stop := time.Now().Add(time.Minute * 40).Add(time.Hour * 10)
+		//stop := time.Now().Add(time.Minute * 40).Add(time.Hour * 10)
+		stop := time.Now()
 		elasped := stop.Sub(t.start)
 		elasped = elasped.Round(time.Second)
 		fmt.Print(file.Name())
