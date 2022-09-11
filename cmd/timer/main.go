@@ -22,6 +22,7 @@ func main() {
 	}
 
 	timer := newTimer()
+	timer.SetHistoryFilePath(conf.History())
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/timer_continue", timer.Continue)

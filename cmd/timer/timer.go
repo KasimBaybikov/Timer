@@ -1,10 +1,17 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 type Timer struct {
-	start   time.Time
-	started bool
+	start           time.Time
+	started         bool
+	historyFilePath string
+}
+
+func (t *Timer) SetHistoryFilePath(historyFilePath string) {
+	t.historyFilePath = historyFilePath
 }
 
 func (t *Timer) Start() {
